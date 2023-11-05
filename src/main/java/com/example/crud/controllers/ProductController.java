@@ -21,7 +21,7 @@ public class ProductController {
     @GetMapping
     public ResponseEntity getAllProducts(){
 
-        var allProducts = repository.findAll();
+        var allProducts = repository.findAllByActiveTrue();
         return ResponseEntity.ok(allProducts);
     }
 
@@ -42,10 +42,16 @@ public class ProductController {
             Product product = optionalProduct.get();
             product.setName(data.name());
             product.setPrice_in_cents(data.price_in_cents());
-            return ResponseEntity.ok(product);
+            product.setActive(false);
+            return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteProduct(@PathVariable String id){
+        repository.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }
