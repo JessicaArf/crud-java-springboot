@@ -1,13 +1,23 @@
 package com.example.crud.domain.product;
 
-import jakarta.persistence.Entity;
-import lombok.EqualsAndHashCode;
+import jakarta.persistence.*;
+import lombok.*;
 
-@Entity(name = "product")
-@Table(name = "product")
+@Table(name="product")
+@Entity(name="product")
 @EqualsAndHashCode(of = "id")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Product {
 
+@Id
+@GeneratedValue(strategy = GenerationType.UUID)
+private String id;
 
+private String name;
+
+private Number price_in_cents;
 
 }
